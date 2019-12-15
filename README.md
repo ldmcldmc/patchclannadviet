@@ -1,6 +1,8 @@
 # patchclannadviet
 Hướng dẫn đàn em patch được cái game từ cái thủa mà t mới biết có máy tính :))))
 
+Video hướng dẫn : https://www.youtube.com/watch?v=hoNChLgenfg&feature=youtu.be
+
 B1: Cài python 32bit
 
 B2: Cài Rldev theo hướng dẫn https://www.baka-tsuki.org/project/index.php?title=OCamlInstall (Lưu ý thay bước tải TortoiseSVN bằng bước dùng bản này https://github.com/theappleman/rldev)
