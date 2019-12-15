@@ -16,8 +16,11 @@ ___- các file .txt lưu dưới dạng UTF-16 LE with BOM
 Link công cụ: https://drive.google.com/open?id=1vfLUmZsUoT7_D0wPfUf3CGDX91oivC1o
 
 B4: mở Cygwin, gõ lần lượt các lệnh:
+
 cd z:
+
 cd CLANNAD
+
 kprl -d -v -f 1.5 -o  seens -e utf8 Seen.txt
 
 B5: vào thư mục seens, copy và paste tất cả file ngay tại đó để tạo " - Copy"
