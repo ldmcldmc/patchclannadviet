@@ -1,3 +1,8 @@
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+
+
+
 # import re
 # #Lay list file
 # from os import listdir
@@ -47,12 +52,12 @@
 
 
 # 	# Lay tat ca file seen từ Baka-tsuki theo route
-# route='4' # Sửa Rote ở đây, thích route nào thì đánh số thứ tự đầu của route đó
+# route='0' # Sửa Rote ở đây, thích route nào thì đánh số thứ tự đầu của route đó
 # import re, requests
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
+# # from selenium import webdriver
+# # from selenium.webdriver.common.keys import Keys
 # from bs4 import BeautifulSoup
-# driver = webdriver.Firefox()
+# # driver = webdriver.Firefox()
 # # Lay list file
 # from os import listdir
 # from os.path import isfile, join
@@ -65,20 +70,22 @@
 # 	# if file!='7600':continue
 # 	# Lay du lieu qua mang
 # 	try:
-# 		link=driver.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file)
-# 		soup=BeautifulSoup(driver.page_source,'lxml')
+# 		# link=driver.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file)
+# 		# soup=BeautifulSoup(driver.page_source,'lxml')
+# 		link = requests.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file)
+# 		soup=BeautifulSoup(link.content,'lxml')
 # 		data=soup.find('pre').text.split('\n')
 # 	except :
 # 		try:
 # 			print(file)
-# 			driver.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file+'P1')
-# 			soup=BeautifulSoup(driver.page_source,'lxml')
+# 			link = requests.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file+'P1')
+# 			soup=BeautifulSoup(link.content,'lxml')
 # 			data=soup.find('pre').text.split('\n')
 # 			try:
 # 				idriver=2
 # 				while True:
-# 					driver.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file+'P'+str(idriver))
-# 					soup=BeautifulSoup(driver.page_source,'lxml')
+# 					link = requests.get('https://www.baka-tsuki.org/project/index.php?title=Clannad_VN:SEEN'+file+'P'+str(idriver))
+# 					soup=BeautifulSoup(link.content,'lxml')
 # 					data+=soup.find('pre').text.split('\n')
 # 					idriver+=1
 # 			except:
@@ -90,7 +97,6 @@
 # 	f=open('seenviet\\SEEN'+file+'.txt','w',encoding='utf-16')
 # 	f.write('\n'.join(data))
 # 	f.close()
-# driver.close()
 
 
 
@@ -191,54 +197,54 @@
 
 
 
-# 	# Lay cac tu dangopedia va cac line to nho
-# import re
-# def findch(s, ch):
-#     return [i for i, ltr in enumerate(s) if ltr == ch]
-# #Lay list file
-# from os import listdir
-# from os.path import isfile, join
-# listfile = [f for f in listdir('seenviet') if isfile(join('seenviet', f) )]
-# listfile = [f for f in listfile if 'SEEN' in f ]
-# for i in range(len(listfile)):
-# 	listfile[i]=listfile[i][4:-4]
+	# Lay cac tu dangopedia va cac line to nho
+import re
+def findch(s, ch):
+    return [i for i, ltr in enumerate(s) if ltr == ch]
+#Lay list file
+from os import listdir
+from os.path import isfile, join
+listfile = [f for f in listdir('seenviet') if isfile(join('seenviet', f) )]
+listfile = [f for f in listfile if 'SEEN' in f ]
+for i in range(len(listfile)):
+	listfile[i]=listfile[i][4:-4]
 
-# result=[]
-# for file in listfile:
-# 	f=open('seens/SEEN'+file+' - Copy.org','r',encoding='utf-8')
-# 	org=f.read().split('\n')
-# 	f.close()
-# 	f=open('seenviet/SEEN'+file+'.txt','r',encoding='utf-16')
-# 	vn=f.read().split('\n')
-# 	f.close()
-# 	f=open('seens/SEEN'+file+' - Copy.utf','r',encoding='utf-8')
-# 	utf=f.read().split('\n')
-# 	f.close()
-# 	for t in vn:
-# 		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and '\\size{}' in t:
-# 			result+=[file+'\t'+t]
-# 	for i in range(len(org)):
-# 		if "farcall_with(9820, 3," in org[i] or "timeExC" in org[i]:
-# 			res=org[i-1][4:]
-# 			res2=org[i+1][4:]
-# 			for v in vn:
-# 				if res in v: vn1=v
-# 			for v in vn:
-# 				if res2 in v: vn2=v
-# 			for u in utf:
-# 				if res in u: utf1=u
-# 			for u in utf:
-# 				if res2 in u: utf2=u
-# 			if org[i][23:-2] in vn1:
-# 				print(file+'\t'+org[i]+'\t'+'dangopedia'+'\t'+vn1[:6]+'\t'+vn1+'\t'+vn2+'\t'+utf1+'\t'+utf2)
-# 			elif "\\g" in vn1:
-# 				print(file+'\t'+org[i]+'\t'+'tag g'+'\t'+vn1[:6]+'\t'+vn1+'\t'+vn2+'\t'+utf1+'\t'+utf2)
-# 			else:
-# 				print(file+'\t'+org[i]+'\t'+'\t'+vn1[:6]+'\t'+vn1+'\t'+vn2+'\t'+utf1+'\t'+utf2)
+result=[]
+for file in listfile:
+	f=open('seens/SEEN'+file+' - Copy.org','r',encoding='utf-8')
+	org=f.read().split('\n')
+	f.close()
+	f=open('seenviet/SEEN'+file+'.txt','r',encoding='utf-16')
+	vn=f.read().split('\n')
+	f.close()
+	f=open('seens/SEEN'+file+' - Copy.utf','r',encoding='utf-8')
+	utf=f.read().split('\n')
+	f.close()
+	for t in vn:
+		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and '\\size{}' in t:
+			result+=[file+'\t'+t]
+	for i in range(len(org)):
+		if "farcall_with(9820, 3," in org[i] or "timeExC" in org[i]:
+			res=org[i-1][4:]
+			res2=org[i+1][4:]
+			for v in vn:
+				if res in v: vn1=v
+			for v in vn:
+				if res2 in v: vn2=v
+			for u in utf:
+				if res in u: utf1=u
+			for u in utf:
+				if res2 in u: utf2=u
+			if org[i][23:-2] in vn1:
+				print(file+'\t'+org[i]+'\t'+'dangopedia'+'\t'+vn1[:6]+'\t'+vn1+'\t'+vn2+'\t'+utf1+'\t'+utf2)
+			elif "\\g" in vn1:
+				print(file+'\t'+org[i]+'\t'+'tag g'+'\t'+vn1[:6]+'\t'+vn1+'\t'+vn2+'\t'+utf1+'\t'+utf2)
+			else:
+				print(file+'\t'+org[i]+'\t'+'\t'+vn1[:6]+'\t'+vn1+'\t'+vn2+'\t'+utf1+'\t'+utf2)
 
 
-# for t in result:
-# 	print(t)
+for t in result:
+	print(t)
 
 
 
