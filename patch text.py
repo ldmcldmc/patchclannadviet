@@ -219,7 +219,7 @@ for indexlistfile in range(len(listfile)):
 
 	# Ghi ra man hinh lenh patch rldev
 	if done:
-		patchrldev+=' yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.utf SEEN'+listfile[indexlistfile]+r'.utf; yes | cp -rf /cygdrive/z/Games/CLANNAD.HD.Edition/CLANNAD.HD.Edition/seens/SEEN'+listfile[indexlistfile]+r'.org SEEN'+listfile[indexlistfile]+r'.org;rlc -i /cygdrive/z/Games/CLANNAD.HD.Edition/CLANNAD.HD.Edition/GAMEEXEbbb.ini -f 1.5 -e utf8 SEEN'+listfile[indexlistfile]+r'.org; kprl -k Seen.txt '+listfile[indexlistfile]+r'; kprl -a Seen.txt SEEN'+listfile[indexlistfile]+r'.TXT;'
+		patchrldev+=' yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.utf SEEN'+listfile[indexlistfile]+r'.utf; yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.org SEEN'+listfile[indexlistfile]+r'.org;rlc -i /cygdrive/z/CLANNAD/GAMEEXEbbb.ini -f 1.5 -e utf8 SEEN'+listfile[indexlistfile]+r'.org; kprl -k Seen.txt '+listfile[indexlistfile]+r'; kprl -a Seen.txt SEEN'+listfile[indexlistfile]+r'.TXT;'
 	patchrldev+='rm /cygdrive/z/CLANNAD/Seen.txt; yes | cp -rf Seen.txt /cygdrive/z/CLANNAD;'
 print(patchrldev)
 
