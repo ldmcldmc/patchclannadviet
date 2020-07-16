@@ -1,4 +1,4 @@
-# patchclannadviet
+# Patch Clannad HD Việt hóa
 > Hướng dẫn đàn em patch được cái game từ cái thủa mà t mới biết có máy tính :))))
 
 > Video hướng dẫn : https://www.youtube.com/watch?v=hoNChLgenfg&feature=youtu.be
