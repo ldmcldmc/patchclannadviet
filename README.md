@@ -4,6 +4,7 @@
 > Video hướng dẫn : https://www.youtube.com/watch?v=hoNChLgenfg&feature=youtu.be
 
 > Các bước tiến hành:
+
 **Bước 1:**
 - Cài python 32bit
 - cài pip install pyperclip
@@ -38,7 +39,7 @@ kprl -d -v -f 1.5 -o  seens -e utf8 Seen.txt
 
 > Tổng hợp 1 số lỗi thường gặp:
 
-Lỗi lệch line do dangopedia, size to nhỏ, wait... --> gặp đâu thì vá đấy :slight_smile:
-Lỗi cygwin ko nhận các ký tự lạ ---> thêm ký tự lạ vào bangma.txt và dùng \size{} \mvx{} mvy{} để tạo các ký tự lạ đó hoặc bỏ đi mà làm người
-Lỗi cygwin ko thích \g :slight_smile: ---> kệ nó đi, cygwin bị chảnh đấy
-các lỗi còn lại thì chịu khó search google + stackoverflow + tham khảo các tài liệu: https://www.google.com/search?client=firefox-b-d&q=rldev
+- Lỗi lệch line do dangopedia, size to nhỏ, wait... --> gặp đâu thì vá đấy :slight_smile:
+- Lỗi cygwin ko nhận các ký tự lạ ---> thêm ký tự lạ vào bangma.txt và dùng \size{} \mvx{} mvy{} để tạo các ký tự lạ đó hoặc bỏ đi mà làm người
+- Lỗi cygwin ko thích \g :slight_smile: ---> kệ nó đi, cygwin bị chảnh đấy
+- các lỗi còn lại thì chịu khó search google + stackoverflow + tham khảo các tài liệu: https://www.google.com/search?client=firefox-b-d&q=rldev
