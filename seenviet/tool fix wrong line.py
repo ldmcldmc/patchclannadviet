@@ -110,14 +110,14 @@ def checkfile(file):
 	laydulieu(file)
 	if not checkline(file):
 		a=demsoline(file)
-		print('File {} khong trung so line giua 2 ban HD ({}) va ban Viet ({})'.format(file,a[1],a[0]))
+		print('File {} không trùng số line giữa 2 bản HD: {} và Việt: {}. Số line lệch: {}'.format(file,a[1],a[0],abs(int(a[1]-int(a[0])))))
 		chinhstt()
 		print('Cac line co the gap loi la:')
 		try:
 			import pyperclip
 			pyperclip.copy(patchrldev)
 		except:
-			print('pyperclip not installed')
+			print('pyperclip is not installed')
 		thongkeloi(file)
 
 
