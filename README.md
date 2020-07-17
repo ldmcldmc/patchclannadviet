@@ -19,7 +19,6 @@
 - Để thư mục theo đúng đường dẫn (D:\CLANNAD)
 - Đặt gói công cụ hỗ trợ theo đúng đường dẫn
 - Liệt kê tất cả các từ dangopedia bị dịch vào dangoword.txt
-- các file .txt lưu dưới dạng UTF-16 LE with BOM
 
 **Bước 4:** 
 - mở Cygwin, gõ lần lượt các lệnh:
