@@ -185,7 +185,6 @@ for indexlistfile in range(len(listfile)):
 
 			# Bỏ tag \size = Bỏ chữ to nhỏ
 			x=re.sub(r"\\size{[^\!]{0,11}}", "", x)
-			print(listfile[indexlistfile]+'\t'+x)
 
 			# Patch tagname / headername
 			m= re.findall( r'\\{[^\{]+}', x)
@@ -235,3 +234,5 @@ try:
 	pyperclip.copy(patchrldev)
 except:
 	print('pyperclip not installed')
+
+input()
