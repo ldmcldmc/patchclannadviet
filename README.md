@@ -2,6 +2,7 @@
 > Hướng dẫn đàn em patch được cái game từ cái thủa mà t mới biết có máy tính :))))
 
 > Video hướng dẫn : https://youtu.be/dJeahI-0-Oc
+
 > Các bước tiến hành:
 
 **Bước 1:**
