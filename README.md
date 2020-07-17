@@ -32,7 +32,7 @@ kprl -d -v -f 1.5 -o  seens -e utf8 Seen.txt
 **Bước 5:**
 - Download file dịch từ baka-tsuki
 
-**Bước 6: (Các bước trước là thiết đặt ban đầu, chỉ cần làm 1 lần.)** 
+**Bước 6: (Các bước trước là thiết đặt ban đầu, chỉ cần làm 1 lần)** 
 - Chạy file "patch text.py" (nếu cài pip và pyperclip trước thì các lệnh đã có ở trong clipboard)
 - Copy các lệnh hiển thị trên màn hình và paste vào cygwin :slight_smile:
 
