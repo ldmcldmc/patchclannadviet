@@ -4,6 +4,7 @@ import re, sys, time, os
 sys.stdout.reconfigure(encoding='utf-8')
 from terminaltables import AsciiTable
 clear = lambda: os.system('cls')
+import pyperclip
 
 #Lay list file
 from os import listdir
@@ -113,11 +114,7 @@ def checkfile(file):
 		print('File {} không trùng số line giữa 2 bản HD: {} và Việt: {}. Số line lệch: {}'.format(file,a[1],a[0],abs(int(a[1]-int(a[0])))))
 		chinhstt()
 		print('Cac line co the gap loi la:')
-		try:
-			import pyperclip
-			pyperclip.copy(patchrldev)
-		except:
-			print('pyperclip is not installed')
+		pyperclip.copy('\n<0000> ')
 		thongkeloi(file)
 
 
