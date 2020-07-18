@@ -79,7 +79,6 @@ for indexlistfile in range(len(listfile)):
 			dangoline+=[[dataorg[i-1][4:],dataorg[i][23:-2]]] # Mảng 2 chiều [so line trong utf, từ dangopedia trong file org]
 
 	# Tìm các line select trong file .org (lựa chọn trong khi chơi)
-	indexorg=[]
 	select_org=[]
 	for t in dataorg:
 		if 'select(' in t: 
@@ -87,6 +86,17 @@ for indexlistfile in range(len(listfile)):
 			for i in range(len(g)):
 				g[i]=g[i][5:-1]
 			select_org=select_org+[g] 		# Mảng 2 chiều, chứa các line select
+
+	# Tìm các line select_s trong file .org (chơi xỏ Fuuko pupupupuuuu... )
+	indexorg=[]
+	fuko_org=[]
+	for t in dataorg:
+		if 'select_s(' in t: 
+			g=re.findall( r'\#res\<[0-9][0-9][0-9][0-9]\>', t)
+			for i in range(len(g)):
+				g[i]=g[i][5:-1]
+			fuko_org=fuko_org+[g] 		# Mảng 2 chiều, chứa các line select
+
 
 	def xulyselect(selectline):
 		# Lay cac lua chon cua ham select
@@ -144,6 +154,39 @@ for indexlistfile in range(len(listfile)):
 					x=x.replace(ab[i],bb[i])
 				write=write+[x]
 				continue
+
+# Nếu có thì lấy lựa chọn fuko từ dataviet, 
+#thay thế dataviet bằng dataraw, 
+# viết lựa chọn thực vào phần trước
+#chỉnh sửa lại file 9070 org và 
+#viết thêm code patch 9070
+
+			# Test xem có phải chơi xỏ Fuko không
+			if t[1:5] in [ fuko_org[i][0] for i in range(len(fuko_org))]:
+				fukoindex = [ fuko_org[i][0] for i in range(len(fuko_org))].index(t[1:5])
+				fukochoice=[]					# Chứa các lựa chọn chơi xỏ fuko
+				for fu in fuko_org[fukoindex]:
+					fukochoice+=[[g for g in dataviet if '<'+fu+'>' == g[:6] ][0]]
+					dataviet[dataviet.index(fukochoice[-1])] = [g for g in dataraw if '<'+fu+'>' == g[:6] ][0]
+					for q in range(len(a)):
+						fukochoice[-1]=fukochoice[-1].replace(a[q],b[q])
+				# viết lựa chọn thực vào phần trước
+				realchoice = ' \\n\\mv{159,-582}'
+				for ifu in range(len(fukochoice)):
+					realchoice+=fukochoice[ifu][7:]
+					if ifu < len(fukochoice)-1:
+						realchoice+='\\n\\mv{'+str(183+ifu*24)+',26}'
+				write[-1]=write[-1]+realchoice
+				# Chỉnh lại file 9070.org để patch Lv
+				f=open('seens\\SEEN9070 - Copy.org','r',encoding="utf-8")
+				temporg=f.read()
+				temporg=temporg.replace("strS[1011] = 'Make her drink juice with her nose       '\nstrS[1012] = 'Put her around somewhere                 '\nstrS[1013] = 'Switch the person she\\'s talking to       '\nstrS[1014] = 'Switch the carving she\\'s holding         '","strS[1011] = '                                         '\nstrS[1012] = '                                         '\nstrS[1013] = '                                          '\nstrS[1014] = '                                          '")
+				f.close()
+				f=open('seens\\SEEN9070.org','w',encoding="utf-8")
+				f.write(temporg)
+				f.close()
+				# Thêm code patch file 9070.org
+				patchrldev+="cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt; yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN9070.org SEEN9070.org;rlc -i /cygdrive/z/CLANNAD/GAMEEXEbbb.ini -f 1.5 -e utf8 SEEN9070.org; kprl -k Seen.txt 9070; kprl -a Seen.txt SEEN9070.TXT;rm /cygdrive/z/CLANNAD/Seen.txt; yes | cp -rf Seen.txt /cygdrive/z/CLANNAD;"
 
 			# Test xem có phải lựa chọn không
 			if t[1:5] in [ select_org[i][0] for i in range(len(select_org))]:
