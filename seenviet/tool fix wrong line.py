@@ -99,6 +99,9 @@ def thongkeloi(file):
 	for t in seenviet:
 		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and '\\size{}' in t:
 			result+=[[t[:6],'cỡ chữ', '', '' , wrap(t) , '' ]]
+	for t in seenviet:
+		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and re.match(r"<[0-9]{4}> .{3,}\\.{0,1}\{.\}", t) is not None:
+			result+=[[t[:6],'name', '', '' , wrap(t) , '' ]]
 	
 	table = AsciiTable(result)
 	print(table.table)
