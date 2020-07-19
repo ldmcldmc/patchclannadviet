@@ -98,14 +98,20 @@ def thongkeloi(file):
 				result+=[[lineviet1[1:5],'',wrap(lineraw1),wrap(lineraw2),wrap(lineviet1),wrap(lineviet2)]]
 	for t in seenviet:
 		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and '\\size{}' in t:
-			result+=[[t[:6],'cỡ chữ', '', '' , wrap(t) , '' ]]
+			result+=[[t[1:5],'cỡ chữ', '', '' , wrap(t) , '' ]]
 	for t in seenviet:
-		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and re.match(r"<[0-9]{4}> .{3,}\\.{0,1}\{.\}", t) is not None:
-			result+=[[t[:6],'name', '', '' , wrap(t) , '' ]]
+		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and re.match(r"^<[0-9]{4}> .{3,}\\[A-Za-z]{0,1}\{[A-Za-z]\}", t) is not None:
+			result+=[[t[1:5],'name', '', '' , wrap(t) , '' ]]
 	
+	result=[result[0]]+sorted(result[1:], key=lambda x: int(x[0]))
 	table = AsciiTable(result)
 	print(table.table)
-	input()
+	while True:
+		laydulieu(file)
+		if '<0000>' in [g[:6] for g in seenviet][1:] or checkline(file):
+			break
+		else:
+			time.sleep(1)
 	clear()
 	checkfile(file)
 

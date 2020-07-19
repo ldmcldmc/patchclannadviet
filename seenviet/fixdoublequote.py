@@ -1,4 +1,5 @@
-import re
+import re, sys
+sys.stdout.reconfigure(encoding='utf-8')
 def findch(s, ch):
     return [i for i, ltr in enumerate(s) if ltr == ch]
 #Lay list file
@@ -23,7 +24,6 @@ dapatch=[]
 
 printscr=[]
 
-patchrldev='yes | cp -rf /cygdrive/z/Games/CLANNAD.HD.Edition/CLANNAD.HD.Edition/Seen.txt Seen.txt;'
 for indexlistfile in range(len(listfile)):
 	# if indexlistfile in [1,2,3,5]:continue
 	# Lay du lieu so sanh
@@ -43,6 +43,8 @@ for indexlistfile in range(len(listfile)):
 			if b[m] in x:
 				x=x.replace(b[m],a[m])
 				dapatch+=[b[m]+'\t'+a[m]]
+
+		# Sửa dấu "" thành 『』
 		if not len(re.findall(r'\"',x))==0:
 			if (len(re.findall(r'\"',x))%2==0):
 				ngd=findch(x,'\"')
@@ -53,6 +55,8 @@ for indexlistfile in range(len(listfile)):
 						x=x[:ngd[i]]+'』'+x[ngd[i]+1:]
 			else:
 				printscr+=[listfile[indexlistfile]+'\t'+x]
+
+		# Sửa dấu '' thành 「」
 		if not len(re.findall(r'\'',x))==0:
 			if (len(re.findall(r'\'',x))%2==0):
 				ngd=findch(x,'\'')
