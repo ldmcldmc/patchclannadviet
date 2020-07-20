@@ -98,10 +98,20 @@ def thongkeloi(file):
 				result+=[[lineviet1[1:5],'',wrap(lineraw1),wrap(lineraw2),wrap(lineviet1),wrap(lineviet2)]]
 	for t in seenviet:
 		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and '\\size{}' in t:
-			result+=[[t[1:5],'cỡ chữ', '', '' , wrap(t) , '' ]]
+			for g in range(len(seenraw)):
+				try:
+					if seenraw[g][:6] == t[:6]: ra = g
+				except:
+					pass
+			result+=[[t[1:5],'cỡ chữ', wrap(seenraw[ra+1]) , wrap(seenraw[ra+2]) , wrap(t) , wrap(seenviet[seenviet.index(t)+1]) ]]
 	for t in seenviet:
 		if re.match(r"<[0-9][0-9][0-9][0-9]>", t[:6]) is not None and re.match(r"^<[0-9]{4}> .{3,}\\[A-Za-z]{0,1}\{[A-Za-z]\}", t) is not None:
-			result+=[[t[1:5],'name', '', '' , wrap(t) , '' ]]
+			for g in range(len(seenraw)):
+				try:
+					if seenraw[g][:6] == t[:6]: ra = g
+				except:
+					pass
+			result+=[[t[1:5],'name', wrap(seenraw[ra+1]) , wrap(seenraw[ra+2]) , wrap(t) , wrap(seenviet[seenviet.index(t)+1]) ]]
 	
 	result=[result[0]]+sorted(result[1:], key=lambda x: int(x[0]))
 	table = AsciiTable(result)
@@ -132,4 +142,4 @@ for file in listfile:
 
 
 
-# !(\/\/|<[0-9]{4}>) .{3,}\\[A-Za-z]{0,1}\{[A-Za-z]\}
+# ^(\/\/|<[0-9]{4}>) .{3,}\\[A-Za-z]{0,1}\{[A-Za-z]\}

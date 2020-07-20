@@ -1,5 +1,5 @@
 	# Lay tat ca file seen từ Baka-tsuki theo route
-route='5' # Sửa Rote ở đây, thích route nào thì đánh số thứ tự đầu của route đó
+route='6' # Sửa Rote ở đây, thích route nào thì đánh số thứ tự đầu của route đó
 import re, requests
 from bs4 import BeautifulSoup
 # Lay list file
@@ -39,3 +39,5 @@ for file in listfile:
 	f=open('seenviet\\SEEN'+file+'.txt','w',encoding='utf-16')
 	f.write('\n'.join(data))
 	f.close()
+
+input()
