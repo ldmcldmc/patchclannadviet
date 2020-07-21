@@ -1,5 +1,5 @@
 	# Lay tat ca file seen từ Baka-tsuki theo route
-route='6' # Sửa Rote ở đây, thích route nào thì đánh số thứ tự đầu của route đó
+route='7' # Sửa Rote ở đây, thích route nào thì đánh số thứ tự đầu của route đó
 import re, requests
 from bs4 import BeautifulSoup
 # Lay list file
@@ -10,6 +10,9 @@ listfile = [f for f in listfile if f[-1]=='g' and f[4]==str(route) and 'Copy' no
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
 listfile=list(set(listfile))
+
+listfile=['7400']
+
 for file in listfile:
 	# if file!='7600':continue
 	# Lay du lieu qua mang

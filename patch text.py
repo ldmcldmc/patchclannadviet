@@ -11,7 +11,7 @@ listfile = [f for f in listdir('seenviet') if isfile(join('seenviet', f) )]
 listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
-# listfile=['0414']
+# listfile=['2416']
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
 bodem1=[]
@@ -155,12 +155,6 @@ for indexlistfile in range(len(listfile)):
 				write=write+[x]
 				continue
 
-# Nếu có thì lấy lựa chọn fuko từ dataviet, 
-#thay thế dataviet bằng dataraw, 
-# viết lựa chọn thực vào phần trước
-#chỉnh sửa lại file 9070 org và 
-#viết thêm code patch 9070
-
 			# Test xem có phải chơi xỏ Fuko không
 			if t[1:5] in [ fuko_org[i][0] for i in range(len(fuko_org))]:
 				fukoindex = [ fuko_org[i][0] for i in range(len(fuko_org))].index(t[1:5])
@@ -250,6 +244,8 @@ for indexlistfile in range(len(listfile)):
 			# Hightlight cho tag \g
 			x=re.sub(r"\\g{([^}]+)}={[^}]+}", r"\\c{intG[1806]}\1\\c{}", x)
 
+			# print(x)
+
 			# Chuyen dau theo rulset vao x
 			for i in range(len(a)):
 				x=x.replace(a[i],b[i])
@@ -257,6 +253,7 @@ for indexlistfile in range(len(listfile)):
 			write=write+[str(x)]
 		else:
 			write=write+[t]
+		# print(write[-1])
 	write='\n'.join(write)
 
 	# Ghi file

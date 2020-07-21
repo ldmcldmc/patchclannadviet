@@ -9,7 +9,7 @@ listfile = [f for f in listdir('../seenviet') if isfile(join('../seenviet', f) )
 listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
-# listfile=['0414']
+# listfile=['2416']
 
 a=[]
 b=[]
