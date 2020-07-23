@@ -25,7 +25,7 @@
 ```cygwin
 cd z:
 cd CLANNAD
-kprl -d -v -f 1.5 -o  seens -e utf8 Seen.txt
+kprl -d -v -f 1.6 -o  seens -e utf8 Seen.txt
 ```
 - Vào thư mục seens, copy và paste tất cả file ngay tại đó để tạo " - Copy"
 
