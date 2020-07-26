@@ -11,7 +11,9 @@ listfile = [f for f in listdir('seenviet') if isfile(join('seenviet', f) )]
 listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
-# listfile=['2416']
+
+# listfile=['1009']
+
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
 bodem1=[]
@@ -56,6 +58,11 @@ for indexlistfile in range(len(listfile)):
 	data=f.read().split('\n')
 	dataviet=[]				# Các line đã dịch
 	dataviet = [ t for t in data if re.match("^<[0-9][0-9][0-9][0-9]>", t) is not None]
+	# Lọc các lỗi dataviet: không cho chút thích vào patch text; 
+	for d in range(len(dataviet)):
+		dataviet[d]= re.sub(r'^(<[0-9]{4}>[^\n\/]*)(\/\/[^\n]*)$',r'\g<1>',dataviet[d])
+		dataviet[d]= re.sub(r'^(<[0-9]{4}> \\\{\\\w{0,1}\{(A|B)\}\}) ',r'\g<1>',dataviet[d])
+		dataviet[d]= re.sub(r'^(<[0-9]{4}> \\\{[^\{]{,20}\}) ',r'\g<1>',dataviet[d])
 	f.close()
 	f=open('seens\\SEEN'+listfile[indexlistfile]+' - Copy.org','r',encoding="utf-8")
 	dataorg=f.read().split('\n') # Các line trong file .org ( file script chỉ cách hiển thị )
@@ -88,7 +95,6 @@ for indexlistfile in range(len(listfile)):
 			select_org=select_org+[g] 		# Mảng 2 chiều, chứa các line select
 
 	# Tìm các line select_s trong file .org (chơi xỏ Fuuko pupupupuuuu... )
-	indexorg=[]
 	fuko_org=[]
 	for t in dataorg:
 		if 'select_s(' in t: 
@@ -96,7 +102,6 @@ for indexlistfile in range(len(listfile)):
 			for i in range(len(g)):
 				g[i]=g[i][5:-1]
 			fuko_org=fuko_org+[g] 		# Mảng 2 chiều, chứa các line select
-
 
 	def xulyselect(selectline):
 		# Lay cac lua chon cua ham select
@@ -118,6 +123,7 @@ for indexlistfile in range(len(listfile)):
 				c=c.replace(a[i],b[i])
 			writedau=writedau+c+r'\n'
 		writedau=writedau[:-2]+r'\mvy{-'+str(46*(len(cacluachon)+1))+'}\\r\\r'
+		writedau=writedau.replace('『','  ')
 		# Viết lại các line chứa lựa chọn thực (Kết quả đổ vào biến dataviet)
 		for t in cacluachon:
 			the=t[:9]+" "*(int(t[1:5])%5)
@@ -155,26 +161,46 @@ for indexlistfile in range(len(listfile)):
 				write=write+[x]
 				continue
 
-			# Test xem có phải chơi xỏ Fuko không
+			# # Test xem có phải chơi xỏ Fuko không (select_s) CÁCH PATCH CŨ
+			# if t[1:5] in [ fuko_org[i][0] for i in range(len(fuko_org))]:
+			# 	fukoindex = [ fuko_org[i][0] for i in range(len(fuko_org))].index(t[1:5])
+			# 	fukochoice=[]					# Chứa các lựa chọn chơi xỏ fuko
+			# 	for fu in fuko_org[fukoindex]:
+			# 		fukochoice+=[[g for g in dataviet if '<'+fu+'>' == g[:6] ][0]]
+			# 		dataviet[dataviet.index(fukochoice[-1])] = [g for g in dataraw if '<'+fu+'>' == g[:6] ][0]
+			# 		for q in range(len(a)):
+			# 			fukochoice[-1]=fukochoice[-1].replace(a[q],b[q])
+			# 	# viết lựa chọn thực vào phần trước
+			# 	realchoice = ' \\n\\mv{159,-582}'
+			# 	for ifu in range(len(fukochoice)):
+			# 		realchoice+=fukochoice[ifu][7:]
+			# 		if ifu < len(fukochoice)-1:
+			# 			realchoice+='\\n\\mv{'+str(183+ifu*24)+',26}'
+			# 	write[-1]=write[-1]+realchoice
+			# 	# Chỉnh lại file 9070.org để patch Lv1 -Lv2 - Master
+			# 	f=open('seens\\SEEN9070 - Copy.org','r',encoding="utf-8")
+			# 	temporg=f.read()
+			# 	temporg=temporg.replace("strS[1011] = 'Make her drink juice with her nose       '\nstrS[1012] = 'Put her around somewhere                 '\nstrS[1013] = 'Switch the person she\\'s talking to       '\nstrS[1014] = 'Switch the carving she\\'s holding         '","strS[1011] = '                                         '\nstrS[1012] = '                                         '\nstrS[1013] = '                                          '\nstrS[1014] = '                                          '")
+			# 	f.close()
+			# 	f=open('seens\\SEEN9070.org','w',encoding="utf-8")
+			# 	f.write(temporg)
+			# 	f.close()
+			# 	# Thêm code patch file 9070.org
+			# 	patchrldev+="cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt; yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN9070.org SEEN9070.org;rlc -i /cygdrive/z/CLANNAD/GAMEEXEbbb.ini -f 1.5 -e utf8 SEEN9070.org; kprl -k Seen.txt 9070; kprl -a Seen.txt SEEN9070.TXT;rm /cygdrive/z/CLANNAD/Seen.txt; yes | cp -rf Seen.txt /cygdrive/z/CLANNAD;"
+
+			# Test xem có phải chơi xỏ Fuko không (select_s) CÁCH MỚI
 			if t[1:5] in [ fuko_org[i][0] for i in range(len(fuko_org))]:
-				fukoindex = [ fuko_org[i][0] for i in range(len(fuko_org))].index(t[1:5])
-				fukochoice=[]					# Chứa các lựa chọn chơi xỏ fuko
-				for fu in fuko_org[fukoindex]:
-					fukochoice+=[[g for g in dataviet if '<'+fu+'>' == g[:6] ][0]]
-					dataviet[dataviet.index(fukochoice[-1])] = [g for g in dataraw if '<'+fu+'>' == g[:6] ][0]
-					for q in range(len(a)):
-						fukochoice[-1]=fukochoice[-1].replace(a[q],b[q])
-				# viết lựa chọn thực vào phần trước
-				realchoice = ' \\n\\mv{159,-582}'
-				for ifu in range(len(fukochoice)):
-					realchoice+=fukochoice[ifu][7:]
-					if ifu < len(fukochoice)-1:
-						realchoice+='\\n\\mv{'+str(183+ifu*24)+',26}'
-				write[-1]=write[-1]+realchoice
-				# Chỉnh lại file 9070.org để patch Lv
+				ifuko = [ fuko_org[i][0] for i in range(len(fuko_org))].index(t[1:5])
+				for fu in fuko_org[ifuko]:
+					iviet = [r[1:5] for r in dataviet].index(fu)
+					dataviet[iviet]=[g for g in dataraw if g[1:5]==fu][0]
+					dataviet[iviet]=dataviet[iviet].replace('<0013> Just leave it','<0013> Bo cuoc')
+					dataviet[iviet]=dataviet[iviet].replace('<0005> Just leave it','<0005> Bo cuoc')
+					dataviet[iviet]=dataviet[iviet].replace('<0010> Feed her Sanae-san\'s bread','<0010> Bat con be an banh mi cua Sanae-san')
+				# Chỉnh lại file 9070.org để patch Lv1 -Lv2 - Master
 				f=open('seens\\SEEN9070 - Copy.org','r',encoding="utf-8")
 				temporg=f.read()
-				temporg=temporg.replace("strS[1011] = 'Make her drink juice with her nose       '\nstrS[1012] = 'Put her around somewhere                 '\nstrS[1013] = 'Switch the person she\\'s talking to       '\nstrS[1014] = 'Switch the carving she\\'s holding         '","strS[1011] = '                                         '\nstrS[1012] = '                                         '\nstrS[1013] = '                                          '\nstrS[1014] = '                                          '")
+				temporg=temporg.replace("strS[1011] = 'Make her drink juice with her nose       '\nstrS[1012] = 'Put her around somewhere                 '\nstrS[1013] = 'Switch the person she\\'s talking to       '\nstrS[1014] = 'Switch the carving she\\'s holding         '","strS[1011] = '     a                                   '\nstrS[1012] = 'Loi di#s28###x19###y2##^#x71###y-6##-#x96#s###y##                                   '\nstrS[1013] = '     c                                    '\nstrS[1014] = '    d                                     '")
 				f.close()
 				f=open('seens\\SEEN9070.org','w',encoding="utf-8")
 				f.write(temporg)
@@ -197,14 +223,17 @@ for indexlistfile in range(len(listfile)):
 			if t[:6] in [bla[0] for bla in dangoline]:
 				idango=[bla[0] for bla in dangoline].index(t[:6])
 				# Xét xem có tag \g , \c chưa
-				if not ('\\g' in x or '\\c' in x):
+				if not ('\\g' in x or r'\\c' in x):
 					# Nếu dịch có từ trong dangoword hoặc trong file org thì đặt tag g cho nó
 					if any(k in x for k in dangoword+[dangoline[idango][1]]):
 						for dan in (dangoword+[dangoline[idango][1]]):
-							if not ('\\g' in x or '\\c{intG[1806]}' in x):
+							if not ('\\g' in x or 'intG[1806]' in x):
 								x=x.replace(dan,'\\g{'+dan+r'}={tag danh tu dong}')
 					else:
-						# Nếu không có thì chép từ file org sang
+					# Nếu không có thì chép từ file org sang và in để cảnh báo lỗi
+						print('Có thể lỗi dango\tSEEN'+listfile[indexlistfile]+'\t'+x+'\t'+dangoline[idango][1])
+						if '\\ \\' in x[-5:]:
+							x=x[:-3]+' '
 						x=x+'\\g{'+dangoline[idango][1]+r'}={tag danh tu dong}'
 				# Nếu cuối dòng có dấu cách và dòng sau đó không có dấu cách thì bảo vệ nó
 				if x[-1]==' ' and dataviet[[p[:6] for p in dataviet].index(t[:6])+1][6:9] != ' \\ ':
@@ -213,7 +242,7 @@ for indexlistfile in range(len(listfile)):
 				f=open('seens\\SEEN'+listfile[indexlistfile]+'.org','r',encoding="utf-8")
 				temporg=f.read().split('\n')
 				for bla in range(len(temporg)):
-					if re.search(r'^farcall_with\(9820, 3, \'[A-Za-z ]+\'\)$', temporg[bla]):
+					if re.search(r'^farcall_with\(9820, 3, \'[^\']+\'\)$', temporg[bla]):
 						temporg[bla]="farcall_with(9820, 3, '')"
 				writeorg='\n'.join(temporg)
 				f=open('seens\\SEEN'+listfile[indexlistfile]+'.org','w',encoding="utf-8")
@@ -263,7 +292,14 @@ for indexlistfile in range(len(listfile)):
 
 	# Ghi ra man hinh lenh patch rldev
 	if done:
-		patchrldev+=' yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.utf SEEN'+listfile[indexlistfile]+r'.utf; yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.org SEEN'+listfile[indexlistfile]+r'.org;rlc -i /cygdrive/z/CLANNAD/GAMEEXEbbb.ini -f 1.5 -e utf8 SEEN'+listfile[indexlistfile]+r'.org; kprl -k Seen.txt '+listfile[indexlistfile]+r'; kprl -a Seen.txt SEEN'+listfile[indexlistfile]+r'.TXT;'
+		patchrldev+='yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.utf SEEN'+listfile[indexlistfile]+r'.utf;'
+		patchrldev+='yes | cp -rf /cygdrive/z/CLANNAD/seens/SEEN'+listfile[indexlistfile]+r'.org SEEN'+listfile[indexlistfile]+r'.org;'
+		patchrldev+='rlc -i /cygdrive/z/CLANNAD/GAMEEXEbbb.ini -f 1.6 -e utf8 SEEN'+listfile[indexlistfile]+r'.org;'
+		patchrldev+='kprl -k Seen.txt '+listfile[indexlistfile]+';'
+		patchrldev+='kprl -a Seen.txt SEEN'+listfile[indexlistfile]+r'.TXT;'
+	
+
+
 	patchrldev+='rm /cygdrive/z/CLANNAD/Seen.txt; yes | cp -rf Seen.txt /cygdrive/z/CLANNAD;'
 
 print(patchrldev)
@@ -274,5 +310,3 @@ try:
 	pyperclip.copy(patchrldev)
 except:
 	print('pyperclip not installed')
-
-input()
