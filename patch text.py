@@ -12,7 +12,7 @@ listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
 
-# listfile=['1009']
+listfile=['1009']
 
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
@@ -121,9 +121,8 @@ for indexlistfile in range(len(listfile)):
 				c+=' '*(40-len(c))
 			for i in range(len(a)):
 				c=c.replace(a[i],b[i])
-			writedau=writedau+c+r'\n'
+			writedau=writedau+c+r'\r'
 		writedau=writedau[:-2]+r'\mvy{-'+str(46*(len(cacluachon)+1))+'}\\r\\r'
-		writedau=writedau.replace('『','  ')
 		# Viết lại các line chứa lựa chọn thực (Kết quả đổ vào biến dataviet)
 		for t in cacluachon:
 			the=t[:9]+" "*(int(t[1:5])%5)
@@ -195,12 +194,25 @@ for indexlistfile in range(len(listfile)):
 					iviet = [r[1:5] for r in dataviet].index(fu)
 					dataviet[iviet]=[g for g in dataraw if g[1:5]==fu][0]
 					dataviet[iviet]=dataviet[iviet].replace('<0013> Just leave it','<0013> Bo cuoc')
-					dataviet[iviet]=dataviet[iviet].replace('<0005> Just leave it','<0005> Bo cuoc')
-					dataviet[iviet]=dataviet[iviet].replace('<0010> Feed her Sanae-san\'s bread','<0010> Bat con be an banh mi cua Sanae-san')
+					dataviet[iviet]=dataviet[iviet].replace('<0005> Just leave it','<0005> Bo cuoc#s16###x22##?#s24###x90###y16##.#s28###x87###y2##^')
+					dataviet[iviet]=dataviet[iviet].replace('<0010> Feed her Sanae-san\'s bread','<0010> Bat con be an banh m  cua Sanae-san #s28###x14###y-4##´#y2###x18##`#x15##´#x150###y1##´#y2###x188##`#x185##´#x252###y1##´#s27###x342###y8##l#s28###x343###y1##`#x397###y-17##,')
+				# Chỉnh file org để patch chữ floating :)
+				f=open('seens\\SEEN'+listfile[indexlistfile]+'.org','r',encoding="utf-8")
+				temporg=f.read()
+				# temporg=temporg.replace('You have mastered the "Make Fuko drink juice with her nose" skill!',"Thành thục kỹ năng 『Uống nước ép bằng lỗ mũi』!")
+				# temporg=temporg.replace('You have mastered the "Put Fuko somewhere randomly" skill!',"Thành thục kỹ năng 『Hoán đổi vị trí』!")
+				# temporg=temporg.replace('You have mastered the "Switch the person Fuko\\\'s talking to" skill!',"Thành thục kỹ năng 『Tráo đổi người nói』!")
+				# temporg=temporg.replace('You have mastered the "Switch the carving Fuko\\\'s holding" skill!',"Thành thục kỹ năng 『Tráo miếng gỗ khắc』!")
+				temporg=temporg.replace('You have mastered the "Switch the carving Fuko\\\'s holding" skill!',"#x195##Thanh thuc ky nang 『Trao mieng go khac』!#s24###x226###y1##`#x319###y12##.#x378###y0##~#x420###y1##`#x418##´#x537###y0##´#x617###y1##^#x618###y-1##´#x692###y2##^#x693###y-3##~#x747###y1##´")
+				temporg=temporg.replace('You have become a "Fuko User"!',"#x270##Da phong cap 『Fuuko Summoner』!#s24###x266###y2##-#x287###y1##~#x421###y2##^#x421###y1##´")
+				f.close()
+				f=open('seens\\SEEN'+listfile[indexlistfile]+'.org','w',encoding="utf-8")
+				f.write(temporg)
+				f.close()
 				# Chỉnh lại file 9070.org để patch Lv1 -Lv2 - Master
 				f=open('seens\\SEEN9070 - Copy.org','r',encoding="utf-8")
 				temporg=f.read()
-				temporg=temporg.replace("strS[1011] = 'Make her drink juice with her nose       '\nstrS[1012] = 'Put her around somewhere                 '\nstrS[1013] = 'Switch the person she\\'s talking to       '\nstrS[1014] = 'Switch the carving she\\'s holding         '","strS[1011] = '     a                                   '\nstrS[1012] = 'Loi di#s28###x19###y2##^#x71###y-6##-#x96#s###y##                                   '\nstrS[1013] = '     c                                    '\nstrS[1014] = '    d                                     '")
+				temporg=temporg.replace("strS[1011] = 'Make her drink juice with her nose       '\nstrS[1012] = 'Put her around somewhere                 '\nstrS[1013] = 'Switch the person she\\'s talking to       '\nstrS[1014] = 'Switch the carving she\\'s holding         '","strS[1011] = 'Uong nuoc bang mui#s28###x19###y3##^#x19###y-1##´#x114###y-13##,#x119###y-2##´#x130###y-13##,#x186###y-5##`#x186###y2##`#x183##´#x274###y3##~#x0###s###y0##                                         '\nstrS[1012] = 'Loi di#s28###x19###y2##^#x71###y-6##-#x0#s###y0##                                         '\nstrS[1013] = 'Doi nguoi noi chuyen#s24###x-2###y5##-#x120###y1##`#x311###y16##.#s28###x25###y-20##,#x18###y2##^#x112###y-13##,#x129##,#x184###y1##´#x308###y2##^#s###y0###x0##                                         '\nstrS[1014] = 'Trao mieng go khac#s28###x31###y1##´#x121###y2##^#x120###y-1##´#x207###y-2##~#x207###y3##^#x269###y1##´#s###y0###x0##                                         '")
 				f.close()
 				f=open('seens\\SEEN9070.org','w',encoding="utf-8")
 				f.write(temporg)
