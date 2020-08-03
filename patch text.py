@@ -279,7 +279,7 @@ for indexlistfile in range(len(listfile)):
 					mv=m
 					for im in range(len(ab)):
 						mv=mv.replace(ab[im],bd[im])
-					x=x.replace('\\{'+m+'}','\\{'+' '*(lch)+'}'+'\\mv{'+str(mvx)+', -78}\\size{30}'+mv+'\\size{}\\mvx{'+str(0-mvx)+'}\\mvy{32}\\n')
+					x=x.replace('\\{'+m+'}','\\{'+' '*(lch)+'}'+'\\mv{'+str(mvx)+', -78}\\size{30}'+mv+'\\size{}\\mvx{'+str(0-mvx)+'}\\mvy{32}\\r')
 
 			# Hightlight cho tag \g
 			x=re.sub(r"\\g{([^}]+)}={[^}]+}", r"\\c{intG[1806]}\1\\c{}", x)
