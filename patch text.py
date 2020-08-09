@@ -12,7 +12,7 @@ listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
 
-listfile=['1009']
+listfile=['0414']
 
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
@@ -29,7 +29,7 @@ f=open('bangma cho headername.txt','r',encoding="utf-16")
 bd=f.read().split('\n')
 f.close()
 # Lấy Bảng mã chuẩn
-f=open('bangma.txt','r',encoding="utf-16")
+f=open('bangma new.txt','r',encoding="utf-16")
 lines=f.read().split('\n')
 for t in lines:
 	try:
