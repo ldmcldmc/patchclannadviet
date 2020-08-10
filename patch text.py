@@ -12,7 +12,7 @@ listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
 
-listfile=['0414']
+# listfile=['0414']
 
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
@@ -45,7 +45,7 @@ dangoword = sorted(dangoword, key=len,reverse=True)
 f.close()
 # ------------------- Hết phần thiết lập các giá trị mặc định -----------------------------
 
-# listfile=['3418']
+# listfile=['0429']
 
 for indexlistfile in range(len(listfile)):
 	done=True
@@ -63,6 +63,7 @@ for indexlistfile in range(len(listfile)):
 		dataviet[d]= re.sub(r'^(<[0-9]{4}>[^\n\/]*)(\/\/[^\n]*)$',r'\g<1>',dataviet[d])
 		dataviet[d]= re.sub(r'^(<[0-9]{4}> \\\{\\\w{0,1}\{(A|B)\}\}) ',r'\g<1>',dataviet[d])
 		dataviet[d]= re.sub(r'^(<[0-9]{4}> \\\{[^\{]{,20}\}) ',r'\g<1>',dataviet[d])
+		dataviet[d]= re.sub(r'^(<[0-9]{4}> [^\n<]*)<',r'\g<1>\\<',dataviet[d])
 	f.close()
 	f=open('seens\\SEEN'+listfile[indexlistfile]+' - Copy.org','r',encoding="utf-8")
 	dataorg=f.read().split('\n') # Các line trong file .org ( file script chỉ cách hiển thị )
@@ -230,6 +231,28 @@ for indexlistfile in range(len(listfile)):
 			for g in dataviet: 
 				if t[:6] in g: x=g
 
+			# Test xem có chữ to nhỏ trong hội thoại không
+			m= re.findall( r'\\size{[^\{]+}', x)
+			if len(m)!=0:
+				m=m[0][6:-1]
+				if '\\size{}' in x:
+					text=max(re.findall( r'\\size{[^\{]+}(.*)\\size{}', x))
+					temptext=text
+					for i in range(len(a)):
+						text=text.replace(a[i],b[i])
+					text=text.replace(u'\xa0',' ')
+					text=text.replace('18',m+'/2')
+					x=x.replace(temptext,text)
+				else:
+					text=x[x.find(m)+1+len(m):]
+					temptext=text
+					for i in range(len(a)):
+						text=text.replace(a[i],b[i])
+					text=text.replace(u'\xa0',' ')
+					text=text.replace('18',m+'/2')
+					x=x.replace(temptext,text)
+
+
 			# Xử lý dangopedia
 			if t[:6] in [bla[0] for bla in dangoline]:
 				idango=[bla[0] for bla in dangoline].index(t[:6])
@@ -260,8 +283,8 @@ for indexlistfile in range(len(listfile)):
 				f.write(writeorg)
 				f.close()
 
-			# Bỏ tag \size = Bỏ chữ to nhỏ
-			x=re.sub(r"\\size{[^\!]{0,11}}", "", x)
+			# # Bỏ tag \size = Bỏ chữ to nhỏ
+			# x=re.sub(r"\\size{[^\!]{0,11}}", "", x)
 
 			# Patch tagname / headername
 			m= re.findall( r'\\{[^\{]+}', x)
@@ -291,6 +314,7 @@ for indexlistfile in range(len(listfile)):
 				x=x.replace(a[i],b[i])
 			x=x.replace(u'\xa0',' ')
 			write=write+[str(x)]
+ 
 		else:
 			write=write+[t]
 		# print(write[-1])
