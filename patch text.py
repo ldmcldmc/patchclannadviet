@@ -12,7 +12,7 @@ listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
 
-# listfile=['0414']
+# listfile=['1001','1002','1003','1004','1005','1006','1009','1008',]
 
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
@@ -200,8 +200,8 @@ for indexlistfile in range(len(listfile)):
 				# Chỉnh file org để patch chữ floating :)
 				f=open('seens\\SEEN'+listfile[indexlistfile]+'.org','r',encoding="utf-8")
 				temporg=f.read()
-				# temporg=temporg.replace('You have mastered the "Make Fuko drink juice with her nose" skill!',"Thành thục kỹ năng 『Uống nước ép bằng lỗ mũi』!")
-				# temporg=temporg.replace('You have mastered the "Put Fuko somewhere randomly" skill!',"Thành thục kỹ năng 『Hoán đổi vị trí』!")
+				temporg=temporg.replace('You have mastered the "Make Fuko drink juice with her nose" skill!',"#x150Thanh thuc ky nang 『Uong nuoc ep bang lo mui』!#x180##い#x270###y4##ぇ#x330##げ#y0###x375##え#x480##ぉ#x488###y-4##ぃ#y0###x563###y-13##,#x578###y-13##,#x565###y-2##´#y0###x615##ぃ#x675##え#x673###y-4##い#x749###y0##ぉ#x748###y-4##う#y0###x792##う")
+				temporg=temporg.replace('You have mastered the "Put Fuko somewhere randomly" skill!',"#x150##Thanh thuc ky nang 『Hoan doi vi tr 』!#x180##い#x270###y4##ぇ#x330##げ#y0###x375##え#x495##ぃ#x544###s20###y-4##-#y0###s###x555##ぉ#x557###y-4##ぅ#y4###x614##ぇ#y0###x675##お#x675##ぃ")
 				temporg=temporg.replace('You have mastered the "Switch the person Fuko\\\'s talking to" skill!',"#x195##Thanh thuc ky nang 『Trao doi nguoi noi』!#s24###x226###y1##`#x319###y12##.#x378###y0##~#x420###y1##`#x418##´#x537###y0##´#x601###y2##^#x683###y-13##,#x698###y-13##,#x688###y-2##`#x746###y-1##´  #s24###x608###y-17##,#x588###y-3##-")
 				temporg=temporg.replace('You have mastered the "Switch the carving Fuko\\\'s holding" skill!',"#x195##Thanh thuc ky nang 『Trao mieng go khac』!#s24###x226###y1##`#x319###y12##.#x378###y0##~#x420###y1##`#x418##´#x537###y0##´#x617###y1##^#x618###y-1##´#x692###y2##^#x693###y-3##~#x747###y1##´")
 				temporg=temporg.replace('You have become a "Fuko User"!',"#x270##Da phong cap 『Fuuko Summoner』!#s24###x266###y2##-#x287###y1##~#x421###y2##^#x421###y1##´")
