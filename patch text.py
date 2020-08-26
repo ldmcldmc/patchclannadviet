@@ -12,7 +12,7 @@ listfile = [f for f in listfile if 'SEEN' in f ]
 for i in range(len(listfile)):
 	listfile[i]=listfile[i][4:-4]
 
-# listfile=['1001','1002','1003','1004','1005','1006','1009','1008',]
+# listfile=['0414']
 
 patchrldev='cd c: ;yes | cp -rf /cygdrive/z/CLANNAD/Seen.txt Seen.txt;'
 bodem=0
@@ -64,6 +64,7 @@ for indexlistfile in range(len(listfile)):
 		dataviet[d]= re.sub(r'^(<[0-9]{4}> \\\{\\\w{0,1}\{(A|B)\}\}) ',r'\g<1>',dataviet[d])
 		dataviet[d]= re.sub(r'^(<[0-9]{4}> \\\{[^\{]{,20}\}) ',r'\g<1>',dataviet[d])
 		dataviet[d]= re.sub(r'^(<[0-9]{4}> [^\n<]*)<',r'\g<1>\\<',dataviet[d])
+		dataviet[d]= dataviet[d].replace('\\n','')
 	f.close()
 	f=open('seens\\SEEN'+listfile[indexlistfile]+' - Copy.org','r',encoding="utf-8")
 	dataorg=f.read().split('\n') # Các line trong file .org ( file script chỉ cách hiển thị )
@@ -292,17 +293,32 @@ for indexlistfile in range(len(listfile)):
 				m=m[0][2:-1]					# Chứa tag name
 				if any(word in m for word in ab):
 					lch=len(m)
-					if lch<9: 
-						mvx=int(27-7.5*(lch-1))	# Tính căn lề trái
-					else:
-						if lch%2==0: 
-							mvx=int(27-8*8)
-						else: 
-							mvx=int(27-8*8+8)
-					mv=m
+							### Cách tính căn lề mới
+					if lch<11:
+						mvx=6-30 + 15*4 - 15*lch//2
+					elif lch%2==0:
+						mvx=6-30 + 15*4 - 15*10//2
+					elif lch%2==1:
+						mvx=6-30 + 15*4 - 15*10//2+7
+					mv=''.join([mao+'\\mvx{1}' for mao in m])
+							### Cách tính căn lề cũ
+					# if lch<9: 
+					# 	mvx=int(27-7.5*(lch-1))	# Tính căn lề trái
+					# else:
+					# 	if lch%2==0: 
+					# 		mvx=int(27-8*8)
+					# 	else: 
+					# 		mvx=int(27-8*8+8)
+					# mv=m
 					for im in range(len(ab)):
 						mv=mv.replace(ab[im],bd[im])
-					x=x.replace('\\{'+m+'}','\\{'+' '*(lch)+'}'+'\\mv{'+str(mvx)+', -78}\\size{30}'+mv+'\\size{}\\mvx{'+str(0-mvx)+'}\\mvy{32}\\r')
+					x=x.replace('\\{'+m+'}','\\{'+' '*lch+'}'+'\\mv{'+str(mvx)+', -78}\\size{30}'+mv+'\\size{}\\mvx{'+str(0-mvx)+'}\\mvy{32}\\r')
+
+			
+
+
+
+
 
 			# Hightlight cho tag \g
 			x=re.sub(r"\\g{([^}]+)}={[^}]+}", r"\\c{intG[1806]}\1\\c{}", x)
