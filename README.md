@@ -15,9 +15,10 @@
 - Chỉnh lại một số thiết đặt.
 - (Hoặc Cài Rldev theo hướng dẫn https://www.baka-tsuki.org/project/index.php?title=OCamlInstall (Lưu ý thay bước tải TortoiseSVN bằng bước dùng bản này https://github.com/theappleman/rldev). Đây chỉ chỉ build kprl và rlc nên chỉ có thể patch text, để patch cg thì sang hỏi anh Hwan :slight_smile:)
 
-**Bước 3 (quan trọng):**
+**Bước 3:**
 - Để thư mục theo đúng đường dẫn (D:\CLANNAD)
 - Đặt gói công cụ hỗ trợ theo đúng đường dẫn
+- Cài font Luudanmatcuoi.ttf (có trong gói công cụ hoặc tải https://github.com/ldmcldmc/patchclannadviet/raw/master/Luudanmatcuoi.ttf)
 - Liệt kê tất cả các từ dangopedia bị dịch vào dangoword.txt
 
 **Bước 4:** 
