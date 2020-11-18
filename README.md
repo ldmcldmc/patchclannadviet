@@ -1,5 +1,6 @@
 # Patch Clannad HD Việt hóa
-> Hướng dẫn patch được cái game thời t mới biết có máy tính :))))
+> Hướng dẫn patch được cái game từ cái thời t mới biết có máy tính :))))
+(bộ công cụ dành cho người mù công nghệ)
 
 > Video hướng dẫn : https://youtu.be/dJeahI-0-Oc
 
