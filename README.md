@@ -9,6 +9,8 @@
 **Bước 1:**
 - Cài python 32bit
 - cài pip install pyperclip
+- cài pip install bs4
+- cài pip install lxml
 
 **Bước 2:**
 - Tải folder này https://drive.google.com/open?id=1oUq5j858INKCINdFD0Jn1QrlTi5vlalV
