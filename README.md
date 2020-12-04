@@ -6,6 +6,8 @@
 
 > Các bước tiến hành:
 
+Note: Không biết bước nào thì search google hoặc hỏi mình dưới phần comment video hướng dẫn nhé.
+
 **Bước 1:**
 - Cài python 32bit
 - cài pip install pyperclip
